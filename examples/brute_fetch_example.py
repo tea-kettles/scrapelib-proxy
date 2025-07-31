@@ -8,6 +8,13 @@ from brute_fetch import BruteFetch
 # Path to your proxy list file
 PROXIES = "proxies.json"
 
+# PROXIES SHOULD BE FORMATTED AS A LIST
+# [
+#    "http://proxy1:port",
+#    "socks4://proxy2:port",
+#    "socks5://proxy3:port"
+# ]
+
 # Set up logging (DEBUG for demonstration)
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -18,8 +25,8 @@ async def run_brute_check(proxies: List[str]) -> Optional[str]:
     Use BruteFetch to check which proxy works for the target.
     Returns the HTML response body from the first working proxy.
     """
-    fetcher = BruteFetch(verify_ssl=False)
-    result = await fetcher.fetch(
+    brute = BruteFetch(verify_ssl=False)
+    result = await brute.fetch(
         url="https://bot.sannysoft.com/",
         proxies=proxies,
         headers=random_headers(),
